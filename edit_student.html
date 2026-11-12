@@ -1,0 +1,319 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Student | Student Management System</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .edit-page {
+            max-width: 850px;
+            margin: 45px auto;
+            padding: 0 20px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .edit-header {
+            margin-bottom: 25px;
+        }
+
+        .edit-header h1 {
+            font-size: 30px;
+            color: #20243a;
+            margin: 10px 0;
+        }
+
+        .edit-header p {
+            color: #8992a4;
+            font-size: 14px;
+        }
+
+        .edit-form-card {
+            background: #ffffff;
+            padding: 30px;
+            border: 1px solid #e9ecf4;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.04);
+        }
+
+        .edit-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        .edit-field {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .edit-field label {
+            color: #444b5e;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .edit-field input,
+        .edit-field select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            border: 1px solid #dfe3ed;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            background: #ffffff;
+        }
+
+        .edit-field input:focus,
+        .edit-field select:focus {
+            border-color: #5145e5;
+            box-shadow: 0 0 0 3px rgba(81, 69, 229, 0.08);
+        }
+
+        .edit-field input[readonly] {
+            background: #f4f5f9;
+            color: #8992a4;
+            cursor: not-allowed;
+        }
+
+        .edit-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .save-btn {
+            background: #5145e5;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .save-btn:hover {
+            background: #4035c9;
+        }
+
+        .cancel-btn {
+            background: #f0f1f6;
+            color: #444b5e;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .edit-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .edit-form-card {
+                padding: 20px;
+            }
+        }
+    </style>
+
+</head>
+
+<body class="dashboard-page">
+
+<div class="edit-page">
+
+    <!-- Page Header -->
+    <div class="edit-header">
+
+        <span class="eyebrow">STUDENT MANAGEMENT</span>
+
+        <h1>Edit Student</h1>
+
+        <p>Update the student's information and save your changes.</p>
+
+    </div>
+
+      <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Edit Form -->
+    <div class="edit-form-card">
+
+        <form action="{{ url_for('edit_student', roll_no=student.roll_no) }}"
+              method="POST">
+
+            <div class="edit-form-grid">
+
+                <!-- Roll Number -->
+                <div class="edit-field">
+
+                    <label>Roll Number</label>
+
+                    <input type="number"
+                           value="{{ student.roll_no }}"
+                           readonly>
+
+                </div>
+
+                <!-- Student Name -->
+                <div class="edit-field">
+
+                    <label>Student Name</label>
+
+                    <input type="text"
+                           name="name"
+                           value="{{ student.name }}"
+                           minlength="2"
+                           maxlength="50"
+                           pattern="[A-Za-z ]+"
+                           required>
+
+                </div>
+
+                <!-- Age -->
+                <div class="edit-field">
+
+                    <label>Age</label>
+
+                    <input type="number"
+                           name="age"
+                           value="{{ student.age }}"
+                           min="1"
+                           max="100"
+                           required>
+
+                </div>
+
+                <!-- Gender -->
+                <div class="edit-field">
+
+                    <label>Gender</label>
+
+                    <select name="gender" required>
+
+                        <option value="Male"
+                            {% if student.gender == "Male" %}selected{% endif %}>
+                            Male
+                        </option>
+
+                        <option value="Female"
+                            {% if student.gender == "Female" %}selected{% endif %}>
+                            Female
+                        </option>
+
+                        <option value="Other"
+                            {% if student.gender == "Other" %}selected{% endif %}>
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- Course -->
+                <div class="edit-field">
+
+                    <label>Course</label>
+
+                    <select name="course" required>
+
+                        <option value="MCA"
+                            {% if student.course == "MCA" %}selected{% endif %}>
+                            MCA
+                        </option>
+
+                        <option value="BCA"
+                            {% if student.course == "BCA" %}selected{% endif %}>
+                            BCA
+                        </option>
+
+                        <option value="BTech"
+                            {% if student.course == "BTech" %}selected{% endif %}>
+                            BTech
+                        </option>
+
+                        <option value="MBA"
+                            {% if student.course == "MBA" %}selected{% endif %}>
+                            MBA
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- Email -->
+                <div class="edit-field">
+
+                    <label>Email Address</label>
+
+                    <input type="email"
+                           name="email"
+                           value="{{ student.email }}"
+                           required>
+
+                </div>
+
+                <!-- Phone -->
+                <div class="edit-field">
+
+                    <label>Phone Number</label>
+
+                    <input type="tel"
+                           name="phone"
+                           value="{{ student.phone }}"
+                           pattern="[0-9]{10}"
+                           minlength="10"
+                           maxlength="10"
+                           required>
+
+                </div>
+
+            </div>
+
+            <!-- Form Buttons -->
+            <div class="edit-actions">
+
+                <button type="submit" class="save-btn">
+                    Save Changes
+                </button>
+
+                <a href="{{ url_for('view_students') }}"
+                   class="cancel-btn">
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add New Student | Student Management System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="form-page">
+
+    <div class="form-container">
+
+        <!-- Form Header -->
+        <div class="form-header">
+
+            <div class="form-icon">🎓</div>
+
+            <h1>Add New Student</h1>
+
+            <p>Enter student information to create a new record.</p>
+
+        </div>
+
+          <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Student Form -->
+        <form action="{{ url_for('add_student') }}" method="POST">
+
+            <div class="form-grid">
+
+                <!-- Roll Number -->
+                <div class="form-group">
+                    <label>Roll Number</label>
+
+                    <input type="number"
+                           name="roll_no"
+                           placeholder="Enter roll number"
+                           min="1"
+                           required>
+                </div>
+
+                <!-- Student Name -->
+                <div class="form-group">
+                    <label>Student Name</label>
+
+                    <input type="text"
+                           name="name"
+                           placeholder="Enter full name"
+                           required>
+                </div>
+
+                <!-- Age -->
+                <div class="form-group">
+                    <label>Age</label>
+
+                    <input type="number"
+                           name="age"
+                           placeholder="Enter age"
+                           min="1"
+                           required>
+                </div>
+
+                <!-- Gender -->
+                <div class="form-group">
+                    <label>Gender</label>
+
+                    <select name="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Course -->
+                <div class="form-group">
+                    <label>Course</label>
+
+                    <select name="course" required>
+                        <option value="">Select Course</option>
+                        <option value="MCA">MCA</option>
+                        <option value="BCA">BCA</option>
+                        <option value="BTech">BTech</option>
+                        <option value="MBA">MBA</option>
+                    </select>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label>Email Address</label>
+
+                    <input type="email"
+                           name="email"
+                           placeholder="example@gmail.com"
+                           required>
+                </div>
+
+                <!-- Phone -->
+                <div class="form-group full-width">
+                    <label>Phone Number</label>
+
+                    <input type="tel"
+                           name="phone"
+                           placeholder="Enter 10 digit mobile number"
+                           pattern="[0-9]{10}"
+                           maxlength="10"
+                           required>
+                </div>
+
+            </div>
+
+            <!-- Form Buttons -->
+            <div class="form-actions">
+
+                <a href="{{ url_for('home') }}"
+                   class="back-btn">
+                    ← Back to Dashboard
+                </a>
+
+                <button type="submit" class="submit-btn">
+                    + Add Student
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

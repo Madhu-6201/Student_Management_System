@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Management System | Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <a href="/" class="brand">
+            <div class="brand-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6"/>
+                    <path d="M2 10l10-5 10 5-10 5-10-5z"/>
+                    <path d="M6 12v5c3 2 9 2 12 0v-5"/>
+                </svg>
+            </div>
+
+            <div class="brand-name">
+                <strong>STUDENT</strong>
+                <span>MANAGEMENT SYSTEM</span>
+            </div>
+        </a>
+
+        <div class="sidebar-label">MAIN MENU</div>
+
+        <nav class="sidebar-nav">
+
+            <a href="/" class="nav-link active">
+                <span class="nav-icon">▦</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="{{ url_for('add_student_page') }}" class="nav-link">
+                <span class="nav-icon">＋</span>
+                <span>Add Student</span>
+            </a>
+
+            <a href="{{ url_for('view_students') }}" class="nav-link">
+                <span class="nav-icon">♙</span>
+                <span>View Students</span>
+            </a>
+
+            <a href="{{ url_for('database_dashboard') }}" class="nav-link">
+                <span class="nav-icon">▦</span>
+                <span>MongoDB Dashboard</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-help-icon">✦</div>
+            <div>
+                <strong>Student Portal</strong>
+                <p>Academic management</p>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div class="breadcrumb">
+                <span>Pages</span>
+                <span>/</span>
+                <strong>Dashboard</strong>
+            </div>
+
+            <div class="topbar-right">
+                <div class="admin-avatar">A</div>
+                <div class="admin-info">
+                    <strong>Administrator</strong>
+                    <span>System Admin</span>
+                </div>
+            </div>
+
+        </header>
+
+
+        <!-- PAGE HEADING -->
+        <section class="page-heading">
+
+            <div>
+                <span class="eyebrow">OVERVIEW</span>
+
+                <h1>Student Management System</h1>
+
+                <p>
+                    Welcome back! Here's what's happening with your
+                    student records today.
+                </p>
+            </div>
+
+            <a href="{{ url_for('add_student_page') }}" class="primary-btn">
+                <span>＋</span> Add New Student
+            </a>
+
+        </section>
+
+
+        <!-- STATISTICS -->
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon purple">♙</div>
+                    <span class="stat-tag">STUDENTS</span>
+                </div>
+
+                <h2>{{ total_students }}</h2>
+                <p>Total Registered Students</p>
+
+                <div class="stat-footer">
+                    <span class="status-dot"></span>
+                    Live database records
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon blue">▤</div>
+                    <span class="stat-tag">COURSES</span>
+                </div>
+
+                <h2>{{ total_courses }}</h2>
+                <p>Available Courses</p>
+
+                <div class="stat-footer">
+                    <span class="status-dot blue-dot"></span>
+                    Unique courses registered
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <div class="stat-icon green">✓</div>
+                    <span class="stat-tag">SYSTEM STATUS</span>
+                </div>
+
+                <h2 class="active-status">Active</h2>
+                <p>Management System</p>
+
+                <div class="stat-footer">
+                    <span class="status-dot"></span>
+                    System is running
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- WELCOME BANNER -->
+        <section class="hero-banner">
+
+            <div class="hero-content">
+                <span class="hero-label">YOUR ACADEMIC WORKSPACE</span>
+
+                <h2>Everything you need,<br>all in one place.</h2>
+
+                <p>
+                    Organize student information, manage academic records
+                    and keep your institution's data organized.
+                </p>
+
+                <a href="{{ url_for('add_student_page') }}" class="hero-btn">
+                    Get Started <span>→</span>
+                </a>
+            </div>
+
+            <div class="hero-decoration">
+                <div class="hero-circle circle-one"></div>
+                <div class="hero-circle circle-two"></div>
+
+                <div class="hero-symbol">
+                    <span>🎓</span>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- QUICK ACTIONS -->
+        <section class="quick-section">
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">SHORTCUTS</span>
+                    <h2>Quick Actions</h2>
+                    <p>Access your frequently used features.</p>
+                </div>
+            </div>
+
+
+            <div class="quick-grid">
+
+                <a href="{{ url_for('add_student_page') }}"
+                   class="quick-card">
+
+                    <div class="quick-icon purple">＋</div>
+
+                    <div class="quick-text">
+                        <h3>Add New Student</h3>
+                        <p>Create a new student record.</p>
+                    </div>
+
+                    <span class="quick-arrow">→</span>
+
+                </a>
+
+
+                <a href="{{ url_for('view_students') }}"
+                   class="quick-card">
+
+                    <div class="quick-icon purple">♙</div>
+
+                    <div class="quick-text">
+                        <h3>View Students</h3>
+                        <p>View all registered students.</p>
+                    </div>
+
+                    <span class="quick-arrow">→</span>
+
+                </a>
+
+
+                <a href="{{ url_for('database_dashboard') }}"
+                   class="quick-card">
+
+                    <div class="quick-icon green">▦</div>
+
+                    <div class="quick-text">
+                        <h3>MongoDB Dashboard</h3>
+                        <p>View database statistics and indexes.</p>
+                    </div>
+
+                    <span class="quick-arrow">→</span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="dashboard-footer">
+            <p>© 2026 Student Management System. All rights reserved.</p>
+            <span>Designed for better academic management.</span>
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>
